@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	set "github/YandexTraining/sets"
+	"github/YandexTraining/set"
 )
 
 func main() {
