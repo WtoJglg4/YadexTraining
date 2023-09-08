@@ -7,18 +7,24 @@ func NewSet(setSize int) Set {
 	for i := range set {
 		set[i] = make([]int, 0)
 	}
-
 	return set
 }
 
-func (s Set) Add(el int) {
-	setSize := len(s)
-	s[el%setSize] = append(s[el%setSize], el)
+func (s Set) Add(els ...int) {
+	for _, el := range els {
+		if !s.Find(el) {
+			setSize := len(s)
+			bucket := abs(el % setSize)
+			s[bucket] = append(s[bucket], el)
+		}
+	}
+
 }
 
 func (s Set) Find(el int) bool {
 	setSize := len(s)
-	for _, v := range s[el%setSize] {
+	bucket := abs(el % setSize)
+	for _, v := range s[bucket] {
 		if el == v {
 			return true
 		}
@@ -29,14 +35,22 @@ func (s Set) Find(el int) bool {
 func (ps *Set) Delete(el int) {
 	s := *ps
 	setSize := len(s)
+	bucket := abs(el % setSize)
 	if s.Find(el) {
-		for i, v := range s[el%setSize] {
+		for i, v := range s[bucket] {
 			if el == v {
-				newS := s[el%setSize][:i]
-				newS = append(newS, s[el%setSize][i+1:]...)
-				s[el%setSize] = newS
+				newS := s[bucket][:i]
+				newS = append(newS, s[bucket][i+1:]...)
+				s[bucket] = newS
 				return
 			}
 		}
 	}
+}
+
+func abs(num int) int {
+	if num >= 0 {
+		return num
+	}
+	return -num
 }

@@ -1,8 +1,8 @@
 package testing
 
 import (
-	"fmt"
 	"math/rand"
+	"strconv"
 	"time"
 )
 
@@ -21,14 +21,23 @@ func max(a, b int) int {
 }
 
 func Testing() {
-	nums := make([]int, 20)
+	nums := make([]string, 10)
+	nums1 := make([]string, 10)
 	s1 := rand.NewSource(time.Now().UnixNano())
 	r1 := rand.New(s1)
-	for {
+	s := 0
+	for s < 2 {
 		for i := 0; i < len(nums); i++ {
-			nums[i] = r1.Intn(201) - 100
+			nums[i] = strconv.Itoa(r1.Intn(201) - 100)
+
 		}
-		fmt.Println(nums)
+		for i := 0; i < len(nums); i++ {
+			nums1[i] = strconv.Itoa(r1.Intn(201) - 100)
+		}
+		///fmt.Println(nums)
+		//fmt.Println(nums1)
+		//set.UnionTwoSets(nums, nums1)
+		s++
 	}
 
 }
