@@ -1,0 +1,5 @@
+package dictionary
+
+func TestOnStress() {
+
+}
